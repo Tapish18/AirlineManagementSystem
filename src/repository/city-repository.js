@@ -10,6 +10,7 @@ class CityRepository {
       });
       return newCity;
     } catch (err) {
+      console.log("Something went wrong in the repository layer.");
       throw { err };
       // console.log("Error occurred in creating city : " + err);
     }
@@ -24,6 +25,34 @@ class CityRepository {
       });
       console.log(deletedCity);
     } catch (error) {
+      console.log("Something went wrong in the repository layer.");
+      throw { error };
+    }
+  }
+
+  async getCity(cityId) {
+    try {
+      const cityObj = await City.find({
+        where: {
+          id: cityId,
+        },
+      });
+      return cityObj;
+    } catch (error) {
+      console.log("Something went wrong in the repository layer.");
+      throw { error };
+    }
+  }
+
+  async updateCity({ cityId, newName }) {
+    try {
+      const city = this.getCity(cityId);
+      if (city) {
+        city.name = newName;
+        await city.save();
+      }
+    } catch (error) {
+      console.log("Something went wrong in the repository layer.");
       throw { error };
     }
   }
