@@ -1,6 +1,7 @@
 const express = require("express");
 const { PORT } = require("./config/serverConfig");
 const bodyParser = require("body-parser");
+const CityRepository = require("./repository/city-repository");
 
 const app = express();
 
